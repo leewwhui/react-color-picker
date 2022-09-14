@@ -1,0 +1,12 @@
+.move-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.move-wrapper-cursor {
+  border-radius: 50%;
+  position: absolute;
+  border: 2px solid white;
+}
