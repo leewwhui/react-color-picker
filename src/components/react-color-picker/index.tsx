@@ -1,48 +1,46 @@
-import { FC, useEffect, useMemo, useRef, useState } from "react";
-import styles from "./colorpicker.module.less";
+import { FC, useEffect, useMemo, useState } from "react";
+import styles from "./index.module.less";
 import convert from "color-convert";
-import { MoveWrapper } from "./moveWrapper";
-import { ColorToolBox } from "./toolbar";
-import { ColorPreview } from "./colorPreview";
-import { Dropper } from "./dropper";
+import { Saturation } from "./saturation/saturation";
+import tinycolor from "tinycolor2";
+import { convertHexToHsv } from "./util/convert";
 
 interface ColorPickerInterface {
+  width?: number;
   color?: string;
   onChange?: (color: string) => void;
   onComplete?: (color: string) => void;
 }
 
-type vector2 = { x: number; y: number };
+export type vector2 = { x: number; y: number };
+export type hsvType = { h: number; s: number; v: number };
 
-const WIDTH = 220;
+const WIDTH = 200;
 const HEIGHT = 200;
 
 export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
-  const { color } = props;
-  const [hsv, setHSV] = useState<number[]>(convert.hex.hsv(color || "#fff"));
+  const { color = "#ffffff", width = WIDTH } = props;
+  const [hsv, setHSV] = useState<hsvType>(() => convertHexToHsv(color));
 
-  const handleChangeHSL = (position: vector2) => {
-    const { x, y } = position;
-    const h = hsv[0];
-    const s = (x / WIDTH) * 100;
-    const v = 100 - (y / HEIGHT) * 100;
-    setHSV([h, s, v]);
+  const handleChangeHSL = (hsv: hsvType) => {
+    setHSV(hsv);
   };
 
-  const handleChangeFromDropper = (hex: string) => {
-    const [h, s, v] = convert.hex.hsv(hex);
-    setHSV([h, s, v]);
-  };
+  // const handleChangeFromDropper = (hex: string) => {
+  //   const [h, s, v] = convert.hex.hsv(hex);
+  //   setHSV([h, s, v]);
+  // };
 
-  const hslPoition = useMemo(() => {
-    const s = hsv[1];
-    const v = hsv[2];
-    return { x: (s / 100) * WIDTH, y: ((100 - v) / 100) * HEIGHT };
-  }, [hsv]);
+  // const hslPoition = useMemo(() => {
+  //   const s = hsv[1];
+  //   const v = hsv[2];
+  //   return { x: (s / 100) * WIDTH, y: ((100 - v) / 100) * HEIGHT };
+  // }, [hsv]);
 
   return (
-    <div className={styles["color-picker-container"]}>
-      <MoveWrapper
+    <div className={styles["color-picker-container"]} style={{ width }}>
+      <Saturation hsv={hsv} onChange={handleChangeHSL}></Saturation>
+      {/* <MoveWrapper
         className={styles["color-hsl-space"]}
         style={{
           backgroundColor: `hsl(${hsv[0]}, 100%, 50%)`,
@@ -68,7 +66,7 @@ export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
         <ColorToolBox hue={hsv[0]}></ColorToolBox>
       </div>
 
-      <Dropper onChange={handleChangeFromDropper}></Dropper>
+      <Dropper onChange={handleChangeFromDropper}></Dropper> */}
     </div>
   );
 };
