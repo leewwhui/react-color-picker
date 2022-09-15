@@ -1,4 +1,4 @@
-import { vector2 } from "..";
+import { vector2 } from "../types";
 
 export const clamp = (value: number, max: number, min: number) => {
   return value > max ? max : value < min ? min : value;

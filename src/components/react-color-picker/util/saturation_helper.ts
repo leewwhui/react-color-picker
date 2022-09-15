@@ -1,10 +1,10 @@
-import { hsvType, vector2 } from "..";
+import { HSV } from "../types";
 import { move } from "./move_cursor";
 
 export const calculateHSV = (
   e: React.MouseEvent | MouseEvent,
   container: HTMLDivElement,
-  hsv: hsvType
+  hsv: HSV
 ) => {
   const { left, top, width, height } = container.getBoundingClientRect();
   const position = move(e, width, height, left, top);

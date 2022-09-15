@@ -1,27 +1,28 @@
 import { FC, useState } from "react";
 import styles from "./index.module.less";
 import { Saturation } from "./saturation/saturation";
-import { convertHexToHsv } from "./util/convert";
-import { ColorToolBox } from "./toolbox/toolbox";
-import { ColorPreview } from "./colorPreview";
+import { convertToColorSet } from "./util/convert";
+import { HSL, HSV, RGB, RGBA, HEX } from "./types";
+import { Hue } from "./hue/hue";
+import { Transparent } from "./transparency/transparency";
+import { ColorPreview } from "./colorPreview/colorPreview";
 
 interface ColorPickerInterface {
   width?: number;
-  color?: string;
+  color?: HSV | HSL | RGB | RGBA | HEX;
   onChange?: (color: string) => void;
   onComplete?: (color: string) => void;
 }
-
-export type vector2 = { x: number; y: number };
-export type hsvType = { h: number; s: number; v: number };
 
 const WIDTH = 200;
 
 export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
   const { color = "#ffffff", width = WIDTH } = props;
-  const [hsv, setHSV] = useState<hsvType>(() => convertHexToHsv(color));
+  const colors = convertToColorSet(color);
+  const [hsv, setHSV] = useState<HSV>(colors.hsv);
+  const [transparency, setTransparency] = useState<number>(colors.rgb.a);
 
-  const handleChangeHSL = (hsv: hsvType) => {
+  const handleChangeHSL = (hsv: HSV) => {
     setHSV(hsv);
   };
 
@@ -29,13 +30,21 @@ export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
     setHSV({ h: hue, s: hsv.s, v: hsv.v });
   };
 
+  const handleChangeTransparency = (transparency: number) => {
+    setTransparency(transparency);
+  };
+
   return (
     <div className={styles["color-picker-container"]} style={{ width }}>
       <Saturation hsv={hsv} onChange={handleChangeHSL}></Saturation>
 
       <div className={styles["color-picker-toolbox-container"]}>
-        <ColorPreview hsv={hsv}></ColorPreview>
-        <ColorToolBox hue={hsv.h} onHueChange={handleChangeHue}></ColorToolBox>
+        <Hue hue={hsv.h} onHueChange={handleChangeHue}></Hue>
+        <Transparent
+          hue={hsv.h}
+          transparency={transparency}
+          onTransparencyChange={handleChangeTransparency}
+        ></Transparent>
       </div>
     </div>
   );

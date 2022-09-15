@@ -1,11 +1,10 @@
 import { FC } from "react";
-import tinycolor from "tinycolor2";
-import { hsvType } from ".";
+import { HSV } from "../types";
+import { hsv2rgb } from "../util/convert";
 import styles from "./colorpreview.module.less";
-import { hsv2rgb } from "./util/convert";
 
 interface ColorPreviewInterface {
-  hsv: hsvType;
+  hsv: HSV;
 }
 
 export const ColorPreview: FC<ColorPreviewInterface> = (props) => {
