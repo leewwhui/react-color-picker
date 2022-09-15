@@ -23,8 +23,6 @@ export const Dropper: FC<DropperInterface> = (props) => {
   };
 
   useEffect(() => {
-    console.log("here");
-
     closeDropper();
     onChange(color);
   }, [color]);

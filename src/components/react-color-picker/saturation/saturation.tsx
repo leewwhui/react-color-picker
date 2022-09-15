@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
-import tinycolor from "tinycolor2";
+import React, { FC, useMemo, useRef } from "react";
 import { hsvType } from "..";
+import { hsv2rgb } from "../util/convert";
 import { calculateHSV } from "../util/saturation_helper";
 import styles from "./saturation.module.less";
 
@@ -12,6 +12,7 @@ interface SaturationInterface {
 export const Saturation: FC<SaturationInterface> = (props) => {
   const { hsv, onChange } = props;
   const containerRef = useRef<HTMLDivElement>(null);
+  const rgb = hsv2rgb(hsv);
 
   const hslPosition = useMemo(() => {
     if (!containerRef || !containerRef.current) return { x: 0, y: 0 };
@@ -19,7 +20,7 @@ export const Saturation: FC<SaturationInterface> = (props) => {
     const s = hsv.s;
     const v = hsv.v;
     return { x: (s / 100) * width, y: ((100 - v) / 100) * height };
-  }, [hsv]);
+  }, [hsv.s, hsv.v]);
 
   const handleOnChange = (e: React.MouseEvent | MouseEvent) => {
     if (!containerRef || !containerRef.current) return;
@@ -54,7 +55,7 @@ export const Saturation: FC<SaturationInterface> = (props) => {
       <div
         className={styles["color-picker-saturation_cursor"]}
         style={{
-          backgroundColor: `#${tinycolor({ ...hsv }).toHex()}`,
+          backgroundColor: `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`,
           left: hslPosition.x,
           top: hslPosition.y,
         }}
