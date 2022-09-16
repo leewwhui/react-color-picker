@@ -16,9 +16,10 @@ interface ColorPickerInterface {
 }
 
 const WIDTH = 200;
+const COLOR = "#ffffff";
 
 export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
-  const { color = "#ffffff", width = WIDTH } = props;
+  const { color = COLOR, width = WIDTH } = props;
   const [hsva, setHSVA] = useState(convertToColorSet(color).hsv);
 
   const handleChangeHSV = (hsv: HSV) => {
@@ -35,6 +36,10 @@ export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
     setHSVA({ h, s, v, a: transparency });
   };
 
+  const handleChangeRGBA = (rgba: RGBA) => {
+    setHSVA(convertToColorSet(rgba).hsv);
+  };
+
   return (
     <div className={styles["color-picker-container"]} style={{ width }}>
       <Saturation hsv={hsva} onChange={handleChangeHSV}></Saturation>
@@ -48,7 +53,10 @@ export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
           ></Transparent>
         </div>
       </div>
-      <RgbaInput rgba={convertHSVA2RGBA(hsva)}></RgbaInput>
+      <RgbaInput
+        rgba={convertHSVA2RGBA(hsva)}
+        onChangeRgba={handleChangeRGBA}
+      ></RgbaInput>
     </div>
   );
 };

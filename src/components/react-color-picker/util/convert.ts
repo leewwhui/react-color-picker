@@ -34,8 +34,8 @@ export const convertToColorSet = (
     hex,
     hsv: {
       h: hsv.h,
-      s: Math.floor(hsv.s * 100),
-      v: Math.floor(hsv.v * 100),
+      s: hsv.s * 100,
+      v: hsv.v * 100,
       a: transparency,
     },
     rgb: {
