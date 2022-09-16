@@ -44,10 +44,7 @@ export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
       </div>
 
       <div className={styles["color-input"]}>
-        <HexInput
-          hex={convertHSVA2HEX(hsva)}
-          onChange={handleChangeHSVA}
-        ></HexInput>
+        <HexInput hsva={hsva} onChange={handleChangeHSVA}></HexInput>
         <RgbaInput
           rgba={convertHSVA2RGBA(hsva)}
           onChange={handleChangeHSVA}

@@ -1,21 +1,24 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styles from "./input.module.less";
 import { HEX, HSVA } from "../types";
-import { convertHEX2HSVA } from "../util/convert";
+import { convertHEX2HSVA, convertHSVA2HEX } from "../util/convert";
 import { isValidateHex } from "../util/hue_helper";
 
 interface HexInputInterface {
-  hex: HEX;
+  hsva: HSVA;
   onChange: (hsva: HSVA) => void;
 }
 
 export const HexInput: FC<HexInputInterface> = (props) => {
-  const [hex, setHex] = useState<HEX>(props.hex);
-  const { onChange } = props;
+  const { hsva, onChange } = props;
+  const [hex, setHex] = useState<HEX>(convertHSVA2HEX(hsva));
+
+  useEffect(() => {
+    setHex(convertHSVA2HEX(hsva));
+  }, [hsva]);
 
   const handleHexChange = (hex: HEX) => {
-    if (isValidateHex(`#${hex}`)) {
-      console.log(convertHEX2HSVA(hex));
+    if (isValidateHex(hex)) {
       onChange(convertHEX2HSVA(hex));
     }
     setHex(hex);
