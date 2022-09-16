@@ -5,18 +5,20 @@ import styles from "./transparency.module.less";
 
 interface TransparentInterface {
   hsv: HSVA;
-  onTransparencyChange: (transparent: number) => void;
+  // onTransparencyChange: (transparent: number) => void;
+  onChange: (hsva: HSVA) => void;
 }
 
 export const Transparent: FC<TransparentInterface> = (props) => {
-  const { hsv, onTransparencyChange } = props;
+  const { hsv, onChange } = props;
   const transparentRef = useRef<HTMLDivElement>(null);
 
   const { h, a } = hsv;
 
   const updateTransparency = (e: React.MouseEvent | MouseEvent) => {
     if (!transparentRef || !transparentRef.current) return;
-    onTransparencyChange(calculateTransparency(e, transparentRef.current));
+    onChange({ ...hsv, a: calculateTransparency(e, transparentRef.current) });
+    // onTransparencyChange(calculateTransparency(e, transparentRef.current));
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {

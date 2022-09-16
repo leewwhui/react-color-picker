@@ -1,14 +1,16 @@
 import React, { FC, useMemo, useRef } from "react";
+import { HSVA } from "../types";
 import { calculateHue } from "../util/hue_helper";
 import styles from "./hue.module.less";
 
 interface HueInterface {
-  hue: number;
-  onHueChange: (hue: number) => void;
+  hsva: HSVA;
+  onChange: (hsva: HSVA) => void;
 }
 
 export const Hue: FC<HueInterface> = (props) => {
-  const { hue, onHueChange } = props;
+  const { hsva, onChange } = props;
+  const hue = hsva.h;
 
   const hueRef = useRef<HTMLDivElement>(null);
 
@@ -18,7 +20,7 @@ export const Hue: FC<HueInterface> = (props) => {
 
   const updateHue = (e: React.MouseEvent | MouseEvent) => {
     if (!hueRef || !hueRef.current) return;
-    onHueChange(calculateHue(e, hueRef.current));
+    onChange({ ...hsva, h: calculateHue(e, hueRef.current) });
   };
 
   const handleHueMouseDown = (e: React.MouseEvent) => {

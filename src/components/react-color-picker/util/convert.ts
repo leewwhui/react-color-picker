@@ -3,23 +3,10 @@ import { HEX } from "color-convert/conversions";
 import tinycolor from "tinycolor2";
 import { HSL, HSV, HSVA, RGB, RGBA } from "../types";
 
-export const convertHexToHsv = (color: string): HSV => {
-  const hsv = convert.hex.hsv(color);
-  return {
-    h: hsv[0],
-    s: hsv[1],
-    v: hsv[2],
-  };
+export const convert2Rgb = (hsva: HSVA) => {
+  const { h, s, v } = hsva;
+  return convertToColorSet({ h, s, v }).rgb;
 };
-
-export function hsv2rgb({ h, s, v }: HSV): RGB {
-  const rgb = convert.hsv.rgb([h, s, v]);
-  return {
-    r: rgb[0],
-    g: rgb[1],
-    b: rgb[2],
-  };
-}
 
 export const convertToColorSet = (
   data: HSV | HSL | RGB | RGBA | HEX | HSVA
@@ -50,4 +37,13 @@ export const convertHSVA2RGBA = (hsva: HSVA) => {
   const rgb = tinycolor({ h, s, v }).toRgb();
   rgb.a = a;
   return rgb;
+};
+
+export const convertHSVA2HEX = (hsva: HSVA) => {
+  const { h, s, v, a } = hsva;
+  return tinycolor({ h, s, v }).toHex();
+};
+
+export const convertHEX2HSVA = (hex: HEX) => {
+  return convertToColorSet(hex).hsv;
 };

@@ -1,6 +1,6 @@
 import React, { FC, useRef } from "react";
-import { HSV, HSVA } from "../types";
-import { hsv2rgb } from "../util/convert";
+import { HSVA } from "../types";
+import { convert2Rgb } from "../util/convert";
 import { calculateHSV } from "../util/saturation_helper";
 import styles from "./saturation.module.less";
 
@@ -12,7 +12,7 @@ interface SaturationInterface {
 export const Saturation: FC<SaturationInterface> = (props) => {
   const { hsv, onChange } = props;
   const containerRef = useRef<HTMLDivElement>(null);
-  const rgb = hsv2rgb(hsv);
+  const rgb = convert2Rgb(hsv);
   const saturationPosition = { x: hsv.s, y: 100 - hsv.v };
 
   const handleOnChange = (e: React.MouseEvent | MouseEvent) => {
