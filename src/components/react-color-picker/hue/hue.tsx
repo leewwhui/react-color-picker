@@ -9,6 +9,7 @@ interface HueInterface {
 
 export const Hue: FC<HueInterface> = (props) => {
   const { hue, onHueChange } = props;
+
   const hueRef = useRef<HTMLDivElement>(null);
 
   const huePosition = useMemo(() => {

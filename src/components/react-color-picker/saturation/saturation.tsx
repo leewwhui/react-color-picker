@@ -1,12 +1,12 @@
 import React, { FC, useRef } from "react";
-import { HSV } from "../types";
+import { HSV, HSVA } from "../types";
 import { hsv2rgb } from "../util/convert";
 import { calculateHSV } from "../util/saturation_helper";
 import styles from "./saturation.module.less";
 
 interface SaturationInterface {
-  hsv: HSV;
-  onChange: (hsv: HSV) => void;
+  hsv: HSVA;
+  onChange: (hsv: HSVA) => void;
 }
 
 export const Saturation: FC<SaturationInterface> = (props) => {

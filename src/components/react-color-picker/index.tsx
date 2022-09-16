@@ -1,11 +1,12 @@
 import { FC, useState } from "react";
 import styles from "./index.module.less";
 import { Saturation } from "./saturation/saturation";
-import { convertToColorSet } from "./util/convert";
-import { HSL, HSV, RGB, RGBA, HEX } from "./types";
+import { convertHSVA2RGBA, convertToColorSet, hsv2rgb } from "./util/convert";
+import { HSL, HSV, RGB, RGBA, HEX, HSVA } from "./types";
 import { Hue } from "./hue/hue";
 import { Transparent } from "./transparency/transparency";
 import { ColorPreview } from "./colorPreview/colorPreview";
+import { RgbaInput } from "./colorInput/rgbaInput";
 
 interface ColorPickerInterface {
   width?: number;
@@ -18,34 +19,36 @@ const WIDTH = 200;
 
 export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
   const { color = "#ffffff", width = WIDTH } = props;
-  const colors = convertToColorSet(color);
-  const [hsv, setHSV] = useState<HSV>(colors.hsv);
-  const [transparency, setTransparency] = useState<number>(colors.rgb.a);
+  const [hsva, setHSVA] = useState(convertToColorSet(color).hsv);
 
-  const handleChangeHSL = (hsv: HSV) => {
-    setHSV(hsv);
+  const handleChangeHSV = (hsv: HSV) => {
+    setHSVA({ ...hsv, a: hsva.a });
   };
 
   const handleChangeHue = (hue: number) => {
-    setHSV({ h: hue, s: hsv.s, v: hsv.v });
+    const { s, v, a } = hsva;
+    setHSVA({ h: hue, s, v, a });
   };
 
   const handleChangeTransparency = (transparency: number) => {
-    setTransparency(transparency);
+    const { h, s, v } = hsva;
+    setHSVA({ h, s, v, a: transparency });
   };
 
   return (
     <div className={styles["color-picker-container"]} style={{ width }}>
-      <Saturation hsv={hsv} onChange={handleChangeHSL}></Saturation>
-
+      <Saturation hsv={hsva} onChange={handleChangeHSV}></Saturation>
       <div className={styles["color-picker-toolbox-container"]}>
-        <Hue hue={hsv.h} onHueChange={handleChangeHue}></Hue>
-        <Transparent
-          hue={hsv.h}
-          transparency={transparency}
-          onTransparencyChange={handleChangeTransparency}
-        ></Transparent>
+        <ColorPreview hsv={hsva}></ColorPreview>
+        <div style={{ flex: 0.9 }}>
+          <Hue hue={hsva.h} onHueChange={handleChangeHue}></Hue>
+          <Transparent
+            hsv={hsva}
+            onTransparencyChange={handleChangeTransparency}
+          ></Transparent>
+        </div>
       </div>
+      <RgbaInput rgba={convertHSVA2RGBA(hsva)}></RgbaInput>
     </div>
   );
 };

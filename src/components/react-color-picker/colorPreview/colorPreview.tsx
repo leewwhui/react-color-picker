@@ -1,22 +1,23 @@
 import { FC } from "react";
-import { HSV } from "../types";
-import { hsv2rgb } from "../util/convert";
-import styles from "./colorpreview.module.less";
+import tinycolor from "tinycolor2";
+import { HSVA } from "../types";
+import styles from "./colorPreview.module.less";
 
 interface ColorPreviewInterface {
-  hsv: HSV;
+  hsv: HSVA;
 }
 
 export const ColorPreview: FC<ColorPreviewInterface> = (props) => {
   const { hsv } = props;
-  const rgb = hsv2rgb(hsv);
+  const { r, g, b, a } = tinycolor(hsv).toRgb();
 
   return (
-    <div
-      className={styles["color-preview-container"]}
-      style={{
-        backgroundColor: `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`,
-      }}
-    ></div>
+    <div className={styles["color-preview-container"]}>
+      <div
+        style={{
+          backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`,
+        }}
+      ></div>
+    </div>
   );
 };

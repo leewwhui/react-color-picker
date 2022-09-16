@@ -1,7 +1,7 @@
 import convert from "color-convert";
 import { HEX } from "color-convert/conversions";
 import tinycolor from "tinycolor2";
-import { HSL, HSV, RGB, RGBA } from "../types";
+import { HSL, HSV, HSVA, RGB, RGBA } from "../types";
 
 export const convertHexToHsv = (color: string): HSV => {
   const hsv = convert.hex.hsv(color);
@@ -21,14 +21,33 @@ export function hsv2rgb({ h, s, v }: HSV): RGB {
   };
 }
 
-export const convertToColorSet = (data: HSV | HSL | RGB | RGBA | HEX) => {
+export const convertToColorSet = (
+  data: HSV | HSL | RGB | RGBA | HEX | HSVA
+) => {
   const color = tinycolor(data);
   const rgb = color.toRgb();
   const hex = color.toHex();
   const hsv = color.toHsv();
+
+  const transparency = Math.ceil(hsv.a);
   return {
     hex,
-    hsv: { h: hsv.h, s: Math.floor(hsv.s * 100), v: Math.floor(hsv.v * 100) },
-    rgb,
+    hsv: {
+      h: hsv.h,
+      s: Math.floor(hsv.s * 100),
+      v: Math.floor(hsv.v * 100),
+      a: transparency,
+    },
+    rgb: {
+      ...rgb,
+      a: transparency,
+    },
   };
+};
+
+export const convertHSVA2RGBA = (hsva: HSVA) => {
+  const { h, s, v, a } = hsva;
+  const rgb = tinycolor({ h, s, v }).toRgb();
+  rgb.a = a;
+  return rgb;
 };
