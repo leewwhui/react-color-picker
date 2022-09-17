@@ -15,7 +15,7 @@ export const Hue: FC<HueInterface> = (props) => {
   const hueRef = useRef<HTMLDivElement>(null);
 
   const huePosition = useMemo(() => {
-    return { x: (hue / 360) * 100 };
+    return (hue / 360) * 100;
   }, [hue]);
 
   const updateHue = (e: React.MouseEvent | MouseEvent) => {
@@ -34,6 +34,8 @@ export const Hue: FC<HueInterface> = (props) => {
     document.removeEventListener("mouseup", handleHueMouseUp);
   };
 
+  console.log(huePosition);
+
   return (
     <div
       className={styles["color-picker-hue"]}
@@ -43,7 +45,7 @@ export const Hue: FC<HueInterface> = (props) => {
       <div
         className={styles["color-picker-hue_cursor"]}
         style={{
-          left: huePosition.x + "%",
+          left: huePosition + "%",
           backgroundColor: `hsl(${hue}, 100%, 50%)`,
         }}
       ></div>
