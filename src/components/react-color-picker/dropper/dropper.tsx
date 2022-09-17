@@ -1,10 +1,11 @@
 import { FC, useEffect } from "react";
-import { convertHEX2HSVA } from "../util/convert";
+import { convertHEX2HSVA, convertHSVA2HEX } from "../util/convert";
 import styles from "./dropper.module.less";
 import { CgColorPicker } from "react-icons/cg";
 import { useCustomEyeDropper } from "./hooks/useCustomEyeDropper";
 import { isBrowserEyeDropper } from "../util/isBrowserSupportEyeDropper";
 import { HSVA } from "../types";
+import tinycolor from "tinycolor2";
 
 interface DropperInterface {
   onChange: (hsva: HSVA) => void;
@@ -26,8 +27,9 @@ export const Dropper: FC<DropperInterface> = (props) => {
   };
 
   useEffect(() => {
+    const hex = tinycolor(color).toHex();
+    onChange(convertHEX2HSVA(hex));
     closeDropper();
-    // onChange(color);
   }, [color]);
 
   return (
