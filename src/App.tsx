@@ -6,7 +6,7 @@ function App() {
     <div>
       <ReactColorPicker
         color={{ r: 255, g: 255, b: 255, a: 0.2 }}
-        width={400}
+        // width={300}
       ></ReactColorPicker>
     </div>
   );

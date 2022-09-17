@@ -1,17 +1,13 @@
 import { FC, useState } from "react";
 import styles from "./index.module.less";
 import { Saturation } from "./saturation/saturation";
-import {
-  convertHSVA2HEX,
-  convertHSVA2RGBA,
-  convertToColorSet,
-} from "./util/convert";
+import { convertToColorSet } from "./util/convert";
 import { HSL, HSV, RGB, RGBA, HEX, HSVA } from "./types";
 import { Hue } from "./hue/hue";
 import { Transparent } from "./transparency/transparency";
 import { ColorPreview } from "./colorPreview/colorPreview";
-import { RgbaInput } from "./colorInput/rgbaInput";
 import { HexInput } from "./colorInput/hexInput";
+import { Dropper } from "./dropper/dropper";
 
 interface ColorPickerInterface {
   width?: number;
@@ -45,10 +41,7 @@ export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
 
       <div className={styles["color-input"]}>
         <HexInput hsva={hsva} onChange={handleChangeHSVA}></HexInput>
-        <RgbaInput
-          rgba={convertHSVA2RGBA(hsva)}
-          onChange={handleChangeHSVA}
-        ></RgbaInput>
+        <Dropper onChange={handleChangeHSVA}></Dropper>
       </div>
     </div>
   );

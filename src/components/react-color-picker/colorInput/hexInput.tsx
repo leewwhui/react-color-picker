@@ -25,9 +25,9 @@ export const HexInput: FC<HexInputInterface> = (props) => {
   };
 
   return (
-    <div className={styles["input-cell"]}>
+    <div className={styles["input-box"]}>
+      <span className={styles["prefix"]}>#</span>
       <input value={hex} onChange={(e) => handleHexChange(e.target.value)} />
-      <span style={{ cursor: "default" }}>HEX</span>
     </div>
   );
 };
