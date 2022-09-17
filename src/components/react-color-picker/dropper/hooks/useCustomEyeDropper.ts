@@ -8,7 +8,7 @@ mask.style.cssText =
   "position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 9999; cursor: crosshair;";
 
 export const useCustomEyeDropper = () => {
-  const [color, setColor] = useState<RGBA>({ r: 0, g: 0, b: 0, a: 0 });
+  const [color, setColor] = useState<RGBA | null>(null);
 
   const openDropper = () => {
     const { left, top, width, height } = document.body.getBoundingClientRect();

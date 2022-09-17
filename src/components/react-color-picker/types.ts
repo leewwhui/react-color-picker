@@ -7,9 +7,9 @@ export type RGB = { r: number; g: number; b: number };
 export type HEX = string;
 
 export interface ColorSet {
-  hsv: HSV;
-  hsl: HSL;
+  hsv: HSVA;
   hex: HEX;
   rgba: RGBA;
-  rgb: RGB;
 }
+
+export type colorPrams = HSV | HSL | RGB | RGBA | HEX;
