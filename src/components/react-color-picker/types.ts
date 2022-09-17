@@ -11,3 +11,5 @@ export interface ColorSet {
   hex: HEX;
   rgba: RGBA;
 }
+
+export type colorPrams = HSV | HSL | RGB | RGBA | HEX;

@@ -1,29 +1,27 @@
 import { FC } from "react";
 import styles from "./index.module.less";
 import { Saturation } from "./saturation/saturation";
-import { convertToColorSet } from "./util/convert";
-import { HSL, HSV, RGB, RGBA, HEX, HSVA, ColorSet } from "./types";
+import { HSVA, ColorSet, colorPrams } from "./types";
 import { Hue } from "./hue/hue";
 import { Transparent } from "./transparency/transparency";
 import { ColorPreview } from "./colorPreview/colorPreview";
 import { HexInput } from "./colorInput/hexInput";
 import { Dropper } from "./dropper/dropper";
+import { useColorManipulate } from "./hooks/useColorManipulate";
+import { COLOR, WIDTH } from "./constants";
 
 interface ColorPickerInterface {
   width?: number;
-  color?: HSV | HSL | RGB | RGBA | HEX;
+  color?: colorPrams;
   onChange?: (color: ColorSet) => void;
 }
 
-const WIDTH = 200;
-const COLOR = "#ffffff";
-
 export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
   const { color = COLOR, width = WIDTH, onChange } = props;
-  const hsva = convertToColorSet(color).hsv;
+  const { hsva, handleChangeColor } = useColorManipulate(color, onChange);
 
   const handleChangeHSVA = (hsva: HSVA) => {
-    onChange && onChange(convertToColorSet(hsva));
+    handleChangeColor(hsva);
   };
 
   return (
