@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from "react";
 import styles from "./input.module.less";
 import { HEX, HSVA } from "../types";
-import { convertHEX2HSVA, convertHSVA2HEX } from "../util/convert";
 import { isValidateHex } from "../util/hue_helper";
+import { ColorModel } from "../colorModel";
 
 interface HexInputInterface {
   hsva: HSVA;
@@ -11,15 +11,15 @@ interface HexInputInterface {
 
 export const HexInput: FC<HexInputInterface> = (props) => {
   const { hsva, onChange } = props;
-  const [hex, setHex] = useState<HEX>(convertHSVA2HEX(hsva));
+  const [hex, setHex] = useState<HEX>(ColorModel.toColorSet(hsva).hex);
 
   useEffect(() => {
-    setHex(convertHSVA2HEX(hsva));
+    setHex(ColorModel.toColorSet(hsva).hex);
   }, [hsva]);
 
   const handleHexChange = (hex: HEX) => {
     if (isValidateHex(hex)) {
-      onChange(convertHEX2HSVA(hex));
+      onChange(ColorModel.toColorSet(hex).hsv);
     }
     setHex(hex);
   };

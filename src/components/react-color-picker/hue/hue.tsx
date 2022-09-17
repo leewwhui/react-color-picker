@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useRef, useState } from "react";
+import React, { FC, useRef } from "react";
 import { HSVA } from "../types";
 import { calculateHue } from "../util/hue_helper";
 import styles from "./hue.module.less";
@@ -9,22 +9,13 @@ interface HueInterface {
 }
 
 export const Hue: FC<HueInterface> = (props) => {
-  // const [isCursorRight, setIsCursorRight] = useState<boolean>(false);
-
   const { hsva, onChange } = props;
   const hue = hsva.h;
   const hueRef = useRef<HTMLDivElement>(null);
-
-  const huePosition = useMemo(() => {
-    // if (isCursorRight) return 100;
-    return (hue / 360) * 100;
-  }, [hue]);
+  const huePosition = (hue / 360) * 100;
 
   const updateHue = (e: React.MouseEvent | MouseEvent) => {
     if (!hueRef || !hueRef.current) return;
-    const hue = calculateHue(e, hueRef.current);
-    // if (hue === 360) setIsCursorRight(true);
-    // else setIsCursorRight(false);
     onChange({ ...hsva, h: calculateHue(e, hueRef.current) });
   };
 

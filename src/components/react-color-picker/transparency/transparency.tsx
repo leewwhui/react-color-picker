@@ -5,7 +5,6 @@ import styles from "./transparency.module.less";
 
 interface TransparentInterface {
   hsv: HSVA;
-  // onTransparencyChange: (transparent: number) => void;
   onChange: (hsva: HSVA) => void;
 }
 
@@ -18,7 +17,6 @@ export const Transparent: FC<TransparentInterface> = (props) => {
   const updateTransparency = (e: React.MouseEvent | MouseEvent) => {
     if (!transparentRef || !transparentRef.current) return;
     onChange({ ...hsv, a: calculateTransparency(e, transparentRef.current) });
-    // onTransparencyChange(calculateTransparency(e, transparentRef.current));
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
