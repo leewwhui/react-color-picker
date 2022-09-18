@@ -32,8 +32,8 @@ export const Dropper: FC<DropperInterface> = (props) => {
   useEffect(() => {
     if (!color) return;
     const hex = tinycolor(color).toHex();
-    onChange(ColorModel.toColorSet(hex).hsv);
     closeDropper();
+    onChange(ColorModel.toColorSet(hex).hsv);
   }, [color]);
 
   return (

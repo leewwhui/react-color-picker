@@ -2,8 +2,6 @@ import tinycolor from "tinycolor2";
 import { colorEnum, colorPrams, ColorSet } from "./types";
 
 export class ColorModel {
-  static toHSVA(color: colorPrams) {}
-
   static toColorSet(data: colorPrams): ColorSet {
     const color = tinycolor(data);
     const alpha = color.getAlpha();
