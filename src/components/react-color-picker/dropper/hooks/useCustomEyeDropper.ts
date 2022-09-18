@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { toPng, toJpeg } from "html-to-image";
+import React, { useState } from "react";
 import { RGBA } from "../../types";
+import { drawMagnifying, renderBackgroundImage } from "./utils";
 
 const mask = document.createElement("div");
 mask.style.cssText =
@@ -9,19 +9,7 @@ mask.style.cssText =
 export const useCustomEyeDropper = () => {
   const [color, setColor] = useState<RGBA | null>(null);
 
-  const renderImage = (): Promise<HTMLImageElement> => {
-    return new Promise((resolve) => {
-      toJpeg(document.body).then((url) => {
-        const image = new Image();
-        image.src = url;
-        image.onload = () => {
-          resolve(image);
-        };
-      });
-    });
-  };
-
-  const openDropper = async () => {
+  const openDropper = async (e: MouseEvent | React.MouseEvent) => {
     document.body.append(mask);
 
     const { left, top, width, height } = mask.getBoundingClientRect();
@@ -34,53 +22,29 @@ export const useCustomEyeDropper = () => {
     const offscreenCanvas = canvas.cloneNode() as HTMLCanvasElement;
     const offscreenContext = offscreenCanvas.getContext("2d");
 
-    const image = await renderImage();
+    const image = await renderBackgroundImage();
 
     const { clientWidth, clientHeight } = document.body;
     offscreenContext!.drawImage(image, 0, 0, clientWidth, clientHeight);
     mask.append(canvas);
 
+    drawMagnifying(canvas, context, offscreenCanvas, e);
+
     mask.addEventListener("mousemove", (e: MouseEvent) => {
       if (!image) return;
+      drawMagnifying(canvas, context, offscreenCanvas, e);
+    });
 
+    mask.addEventListener("mousedown", (e: MouseEvent) => {
+      const [r, g, b, a] = context.getImageData(e.x, e.y, 1, 1).data;
       context.clearRect(0, 0, canvas.width, canvas.height);
-      const x = e.clientX;
-      const y = e.clientY;
-
-      context.save();
-      context.beginPath();
-      const mr = canvas.height * 0.1;
-
-      const imageX = x - mr / 2;
-      const imageY = y - mr / 2;
-
-      const sx = imageX;
-      const sy = imageY;
-
-      const dx = x - mr;
-      const dy = y - mr;
-
-      context.arc(x, y, mr, 0, Math.PI * 2, true);
-      context.strokeStyle = "white";
-      context.lineWidth = 6;
-
-      context.stroke();
-      context.closePath();
-      context.clip();
-
-      context.drawImage(
-        offscreenCanvas,
-        sx,
-        sy,
-        mr,
-        mr,
-        dx,
-        dy,
-        2 * mr,
-        2 * mr
+      offscreenContext?.clearRect(
+        0,
+        0,
+        offscreenCanvas.width,
+        offscreenCanvas.height
       );
-
-      context.restore();
+      setColor({ r, g, b, a });
     });
   };
 

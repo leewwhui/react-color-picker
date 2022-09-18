@@ -16,7 +16,7 @@ export const Dropper: FC<DropperInterface> = (props) => {
   const { onChange } = props;
   const { openDropper, color, closeDropper } = useCustomEyeDropper();
 
-  const handleOpenDropper = async () => {
+  const handleOpenDropper = async (e: React.MouseEvent) => {
     if (isBrowserEyeDropper()) {
       // @ts-ignore
       const eyeDropper = new EyeDropper();
@@ -25,7 +25,7 @@ export const Dropper: FC<DropperInterface> = (props) => {
         // @ts-ignore
         .then((res) => onChange(ColorModel.toColorSet(res.sRGBHex).hsv));
     } else {
-      openDropper();
+      openDropper(e);
     }
   };
 
