@@ -2,7 +2,6 @@ import React, { FC, useRef } from "react";
 import { css } from "@emotion/css";
 import { HSVA } from "../types";
 import { calculateTransparency } from "../util/transparency_helper";
-import styles from "./transparency.module.less";
 import { transparentImageUrl } from "../constants";
 
 interface TransparentInterface {

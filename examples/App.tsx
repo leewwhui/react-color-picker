@@ -1,34 +1,29 @@
-import { useState } from "react";
-import "./App.css";
+import { Fragment, useState } from "react";
 import { ReactColorPicker } from "../src/index";
-import React from "react";
+import "./App.css";
 
 function App() {
   const [color, setColor] = useState({ r: 123, g: 123, b: 123, a: 0.5 });
 
   return (
-    <div>
+    <Fragment>
+      <div className="container">
+        <h1 className="title">React Color Pane</h1>
+        <div className="picker">
+          <ReactColorPicker
+            color={color}
+            onChange={(colors: any) => setColor(colors.rgba)}
+          ></ReactColorPicker>
+        </div>
+      </div>
+
       <div
         style={{
-          width: 200,
-          height: 200,
-          background: `linear-gradient(#e66465, #9198e5)`,
-        }}
-      ></div>
-      <div
-        style={{
-          width: 200,
-          height: 200,
           backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
         }}
+        className="background"
       ></div>
-      <ReactColorPicker
-        color={color}
-        onChange={(colors) => {
-          setColor(colors.rgba);
-        }}
-      ></ReactColorPicker>
-    </div>
+    </Fragment>
   );
 }
 

@@ -31,7 +31,6 @@ export class ColorModel {
   static isColorEqual(source: colorPrams, target: colorPrams) {
     const targetSrc = tinycolor(target).toString();
     const sourceColor = tinycolor(source).toString();
-
     return targetSrc === sourceColor;
   }
 

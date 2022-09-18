@@ -1,4 +1,4 @@
-import { toPng } from "html-to-image";
+import html2canvas from "html2canvas";
 
 export const drawMagnifying = (
   canvas: HTMLCanvasElement,
@@ -36,14 +36,6 @@ export const drawMagnifying = (
   context.restore();
 };
 
-export const renderBackgroundImage = (): Promise<HTMLImageElement> => {
-  return new Promise((resolve) => {
-    toPng(document.body, { backgroundColor: "white" }).then((url) => {
-      const image = new Image();
-      image.src = url;
-      image.onload = () => {
-        resolve(image);
-      };
-    });
-  });
+export const renderBackgroundImage = async (): Promise<HTMLCanvasElement> => {
+  return await html2canvas(document.body, { scale: 1 });
 };

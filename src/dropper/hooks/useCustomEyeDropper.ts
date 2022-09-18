@@ -11,8 +11,12 @@ export const useCustomEyeDropper = () => {
 
   const openDropper = async (e: MouseEvent | React.MouseEvent) => {
     document.body.append(mask);
-
     const { left, top, width, height } = mask.getBoundingClientRect();
+
+    const url = await (await renderBackgroundImage()).toDataURL("image/png");
+    const image = new Image();
+    image.src = url;
+
     const canvas = document.createElement("canvas");
     canvas.style.cssText = `position: absolute; top: ${top}px; left: ${left}px;`;
     canvas.width = width;
@@ -20,32 +24,30 @@ export const useCustomEyeDropper = () => {
     const context = canvas.getContext("2d")!;
 
     const offscreenCanvas = canvas.cloneNode() as HTMLCanvasElement;
-    const offscreenContext = offscreenCanvas.getContext("2d");
+    const offscreenContext = offscreenCanvas.getContext("2d")!;
 
-    const image = await renderBackgroundImage();
+    image.onload = () => {
+      offscreenContext.drawImage(image, 0, 0);
+    };
 
-    const { clientWidth, clientHeight } = document.body;
-    offscreenContext!.drawImage(image, 0, 0, clientWidth, clientHeight);
     mask.append(canvas);
-
     drawMagnifying(canvas, context, offscreenCanvas, e);
 
     mask.addEventListener("mousemove", (e: MouseEvent) => {
-      if (!image) return;
       drawMagnifying(canvas, context, offscreenCanvas, e);
     });
 
-    mask.addEventListener("mousedown", (e: MouseEvent) => {
-      const [r, g, b, a] = context.getImageData(e.x, e.y, 1, 1).data;
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      offscreenContext?.clearRect(
-        0,
-        0,
-        offscreenCanvas.width,
-        offscreenCanvas.height
-      );
-      setColor({ r, g, b, a });
-    });
+    // mask.addEventListener("mousedown", (e: MouseEvent) => {
+    //   const [r, g, b, a] = context.getImageData(e.x, e.y, 1, 1).data;
+    //   context.clearRect(0, 0, canvas.width, canvas.height);
+    //   offscreenContext?.clearRect(
+    //     0,
+    //     0,
+    //     offscreenCanvas.width,
+    //     offscreenCanvas.height
+    //   );
+    //   setColor({ r, g, b, a });
+    // });
   };
 
   const closeDropper = () => {

@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { css } from "@emotion/css";
-import styles from "./index.module.less";
 import { Saturation } from "./saturation/saturation";
 import { HSVA, ColorSet, colorPrams } from "./types";
 import { Hue } from "./hue/hue";
@@ -10,7 +9,7 @@ import { HexInput } from "./colorInput/hexInput";
 import { Dropper } from "./dropper/dropper";
 import { useColorManipulate } from "./hooks/useColorManipulate";
 import { COLOR, WIDTH } from "./constants";
-
+import { RgbaInput } from "./colorInput/regbInput";
 interface ColorPickerInterface {
   width?: number;
   color?: colorPrams;
@@ -40,7 +39,6 @@ const toolboxContainer = css`
 const colorInput = css`
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
   margin-top: 10px;
 `;
 
@@ -65,9 +63,11 @@ export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
       </div>
 
       <div className={colorInput}>
-        <HexInput hsva={hsva} onChange={handleChangeHSVA}></HexInput>
-        <Dropper onChange={handleChangeHSVA}></Dropper>
+        <HexInput hsva={hsva} onChange={handleChangeColor}></HexInput>
+        <RgbaInput hsva={hsva} onChange={handleChangeColor}></RgbaInput>
       </div>
+
+      <Dropper onChange={handleChangeColor}></Dropper>
     </div>
   );
 };
