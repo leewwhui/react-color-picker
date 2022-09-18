@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
-import { ReactColorPicker } from "./components/react-color-picker";
+import { ReactColorPicker } from "../src/index";
+import React from "react";
 
 function App() {
   const [color, setColor] = useState({ r: 123, g: 123, b: 123, a: 0.5 });
