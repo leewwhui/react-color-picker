@@ -1,5 +1,4 @@
 import { FC } from "react";
-import styles from "./input.module.less";
 
 interface InputCellInterface {
   value: number;
@@ -13,7 +12,7 @@ export const InputCell: FC<InputCellInterface> = (props) => {
   const { value, label, onChange, step = 1, max = 255 } = props;
 
   return (
-    <div className={styles["input-cell"]}>
+    <div>
       <input
         type="number"
         value={value}
