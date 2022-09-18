@@ -1,13 +1,32 @@
 {
-  "name": "react-color-picker",
-  "private": true,
-  "version": "0.0.0",
+  "name": "react-prefect-color-picker",
+  "private": false,
+  "version": "0.0.6",
   "type": "module",
+  "module": "./dist/build.es.ts",
+  "main": "./dist/build.es.ts",
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
+  "exports": {
+    ".": {
+      "import": "./dist/build.es.ts",
+      "require": "./dist/build.umd.ts"
+    },
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    }
+  },
+  "keywords": [
+    "react",
+    "color picker"
+  ],
   "dependencies": {
     "ahooks": "^3.7.1",
     "html-to-image": "^1.10.8",
@@ -18,6 +37,7 @@
     "tinycolor2": "^1.4.2"
   },
   "devDependencies": {
+    "@types/node": "^18.7.18",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@types/tinycolor2": "^1.4.3",
