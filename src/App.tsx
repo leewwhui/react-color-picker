@@ -11,6 +11,13 @@ function App() {
         style={{
           width: 200,
           height: 200,
+          background: `linear-gradient(#e66465, #9198e5)`,
+        }}
+      ></div>
+      <div
+        style={{
+          width: 200,
+          height: 200,
           backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
         }}
       ></div>
