@@ -1,5 +1,4 @@
 import { FC, useEffect } from "react";
-// import { convertHEX2HSVA, convertHSVA2HEX } from "../util/convert";
 import styles from "./dropper.module.less";
 import { CgColorPicker } from "react-icons/cg";
 import { useCustomEyeDropper } from "./hooks/useCustomEyeDropper";
