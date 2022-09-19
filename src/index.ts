@@ -1,2 +1,1 @@
-import {ReactColorPicker} from './colorPicker';
-export {ReactColorPicker}
+export { ReactColorPicker } from './colorPicker'

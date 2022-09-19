@@ -1,5 +1,5 @@
 import React, { FC, useRef } from "react";
-import styles from './saturation.module.less';
+import {saturationCursor, saturationContainer} from './saturation.style';
 import tinycolor from "tinycolor2";
 import { HSVA } from "../types";
 import { calculateHSV } from "../util/saturation_helper";
@@ -35,14 +35,14 @@ export const Saturation: FC<SaturationInterface> = (props) => {
   return (
     <div
       ref={containerRef}
-      className={styles['saturation-container']}
+      className={saturationContainer}
       style={{
         backgroundColor: `hsl(${hsv.h}, 100%, 50%)`,
       }}
       onMouseDown={handleMouseDown}
     >
       <div
-        className={styles['saturation-cursor']}
+        className={saturationCursor}
         style={{
           backgroundColor: `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`,
           left: saturationPosition.x + "%",

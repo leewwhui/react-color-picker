@@ -1,6 +1,6 @@
-import { FC, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { CgColorPicker } from "react-icons/cg";
-import styles from './dropper.module.less';
+import {dropper} from './dropper.style';
 import { useCustomEyeDropper } from "./hooks/useCustomEyeDropper";
 import { isBrowserEyeDropper } from "../util/isBrowserSupportEyeDropper";
 import { HSVA } from "../types";
@@ -36,7 +36,7 @@ export const Dropper: FC<DropperInterface> = (props) => {
   }, [color]);
 
   return (
-    <button onClick={handleOpenDropper} className={styles['dropper']}>
+    <button onClick={handleOpenDropper} className={dropper}>
       <CgColorPicker size={20}></CgColorPicker>
     </button>
   );

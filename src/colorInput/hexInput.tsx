@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from "react";
-import styles from "./hex.module.less";
+import React, { FC, useEffect, useState } from "react";
+import {inputBox} from './hex.style';
 import { HEX, HSVA } from "../types";
 import { isValidateHex } from "../util/hue_helper";
 import { ColorModel } from "../colorModel";
@@ -32,7 +32,7 @@ export const HexInput: FC<HexInputInterface> = (props) => {
   };
 
   return (
-    <div className={styles["inputBox"]}>
+    <div className={inputBox}>
       <input
         value={hex}
         onChange={(e) => handleHexChange(e.target.value)}

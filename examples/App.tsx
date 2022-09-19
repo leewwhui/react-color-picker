@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react";
 import { ReactColorPicker } from "../src/index";
+// import {ReactColorPicker} from '../dist';
 import "./App.css";
 
 function App() {
@@ -11,8 +12,8 @@ function App() {
         <h1 className="title">React Color Pane</h1>
         <div className="picker">
           <ReactColorPicker
-            color={color}
-            onChange={(colors: any) => setColor(colors.rgba)}
+          color={color}
+          onChange={colors => setColor(colors.rgba)}
           ></ReactColorPicker>
         </div>
       </div>

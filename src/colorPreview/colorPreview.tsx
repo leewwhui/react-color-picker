@@ -1,5 +1,5 @@
-import { FC } from "react";
-import styles from './colorPreview.module.less';
+import React, { FC } from "react";
+import {colorPreviewContainer} from './colorPreview.style';
 import tinycolor from "tinycolor2";
 import { HSVA } from "../types";
 
@@ -12,7 +12,7 @@ export const ColorPreview: FC<ColorPreviewInterface> = (props) => {
   const { r, g, b, a } = tinycolor(hsv).toRgb();
 
   return (
-    <div className={styles['color-preview-container']}>
+    <div className={colorPreviewContainer}>
       <div
         style={{
           backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`,

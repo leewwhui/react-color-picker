@@ -1,23 +1,26 @@
 {
   "name": "react-color-pane",
   "private": false,
-  "version": "0.0.5",
-  "type": "module",
-  "module": "./dist/build.es.js",
-  "main": "./dist/build.es.js",
-  "files": [
-    "dist/*"
-  ],
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
+  "version": "0.0.1",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.module.js",
+  "esmodule": "dist/index.esmodule.js",
+  "umd:main": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/build.es.js",
-      "require": "./dist/build.es.js"
+      "types": "./dist/index.d.ts",
+      "umd": "./dist/index.umd.js",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "default": "./dist/index.module.js"
     }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "del-cli 'dist/*' && microbundle build --entry src/index.ts --jsx React.createElement --name react-color-pane --css inline --tsconfig tsconfig.build.json",
+    "preview": "vite preview"
   },
   "keywords": [
     "react",
@@ -29,7 +32,6 @@
     "html-to-image": "^1.10.8",
     "html2canvas": "^1.4.1",
     "less": "^4.1.3",
-    "microbundle": "^0.15.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
@@ -42,6 +44,8 @@
     "@types/react-dom": "^18.0.6",
     "@types/tinycolor2": "^1.4.3",
     "@vitejs/plugin-react": "^2.1.0",
+    "del-cli": "^5.0.0",
+    "microbundle": "^0.15.1",
     "rollup-plugin-typescript2": "^0.34.0",
     "tslib": "^2.4.0",
     "typescript": "^4.8.3",

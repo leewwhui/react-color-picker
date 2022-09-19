@@ -1,5 +1,5 @@
 import React, { FC, useRef } from "react";
-import styles from './hue.module.less';
+import {hueContainer, hueCursor} from './hue.style';
 import { HSVA } from "../types";
 import { calculateHue } from "../util/hue_helper";
 
@@ -31,9 +31,9 @@ export const Hue: FC<HueInterface> = (props) => {
   };
 
   return (
-    <div className={styles['hue-container']} ref={hueRef} onMouseDown={handleHueMouseDown}>
+    <div className={hueContainer} ref={hueRef} onMouseDown={handleHueMouseDown}>
       <div
-        className={styles['hue-cursor']}
+        className={hueCursor}
         style={{
           left: huePosition + "%",
           backgroundColor: `hsl(${hue}, 100%, 50%)`,

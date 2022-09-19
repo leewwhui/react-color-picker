@@ -1,5 +1,5 @@
 import React, { FC, useRef } from "react";
-import styles from './transparency.module.less';
+import {transparencyContainer , transparencyCursor, transparencyHue} from './transparency.style';
 import { HSVA } from "../types";
 import { calculateTransparency } from "../util/transparency_helper";
 
@@ -32,18 +32,18 @@ export const Transparent: FC<TransparentInterface> = (props) => {
 
   return (
     <div
-      className={styles['transparency-container']}
+      className={transparencyContainer}
       ref={transparentRef}
       onMouseDown={handleMouseDown}
     >
       <div
-        className={styles['transparency-hue']}
+        className={transparencyHue}
         style={{
           backgroundImage: `linear-gradient(to right, transparent, hsl(${h}, 100%, 50%))`,
         }}
       ></div>
 
-      <div className={styles['transparency-cursor']} style={{ left: a * 100 + "%" }}>
+      <div className={transparencyCursor} style={{ left: a * 100 + "%" }}>
         <div style={{ backgroundColor: `hsla(${h}, 100%, 50%, ${a})` }} />
       </div>
     </div>

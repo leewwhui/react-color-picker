@@ -1,8 +1,8 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { HSVA, RGBA } from "../types";
 import { InputCell } from "./inputCell";
 import { ColorModel } from "../colorModel";
-import styles from './rgbInput.module.less';
+import {rgbaContainer} from './rgbInput.style';
 
 interface RgbaInputInterface {
   hsva: HSVA;
@@ -20,7 +20,7 @@ export const RgbaInput: FC<RgbaInputInterface> = (props) => {
   };
 
   return (
-    <div className={styles['rgba-container']}>
+    <div className={rgbaContainer}>
       <InputCell
         value={rgba.r}
         label="R"

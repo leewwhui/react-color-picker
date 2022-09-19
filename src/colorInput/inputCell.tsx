@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./input.module.less";
+import {inputCell} from './input.style';
 
 interface InputCellInterface {
   value: number;
@@ -34,7 +34,7 @@ export class InputCell extends React.Component<InputCellInterface> {
 
   render() {
     return (
-    <div className={styles["input-cell"]}>
+    <div className={inputCell}>
       <input value={this.props.value} onChange={(e) => this.props.onChange(Number(e.target.value))} />
       <span onMouseDown={this.handleMouseDown}>{this.props.label}</span>
     </div>

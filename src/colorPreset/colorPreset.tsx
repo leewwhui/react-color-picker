@@ -1,5 +1,5 @@
-import { FC } from "react";
-import styles from "./colorPreset.module.less";
+import React, { FC } from "react";
+import {presetCell, presetContainer} from './colorPreset.style';
 import { presetColors } from "../constants";
 import { HEX, HSVA } from "../types";
 import { Dropper } from "../dropper/dropper";
@@ -17,12 +17,12 @@ export const ColorPreset: FC<ColorPresetInterface> = (props) => {
   };
 
   return (
-    <div className={styles["preset-container"]}>
+    <div className={presetContainer}>
       {presetColors.map((color) => (
         <div
           key={color}
           style={{ backgroundColor: color }}
-          className={styles["preset-cell"]}
+          className={presetCell}
           onMouseDown={() => handleSelectColor(color)}
         ></div>
       ))}
