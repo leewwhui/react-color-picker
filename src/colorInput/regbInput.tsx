@@ -1,26 +1,13 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { HSVA, RGBA } from "../types";
 import { InputCell } from "./inputCell";
-import { css } from "@emotion/css";
 import { ColorModel } from "../colorModel";
+import styles from './rgbInput.module.less';
 
 interface RgbaInputInterface {
   hsva: HSVA;
   onChange: (hsva: HSVA) => void;
 }
-
-const rgbInputContainer = css`
-  display: flex;
-  flex: 1;
-
-  input {
-    box-sizing: border-box;
-    padding: 0px 2px;
-    height: 20px;
-    width: 95%;
-    border: 1px solid #eee;
-  }
-`;
 
 export const RgbaInput: FC<RgbaInputInterface> = (props) => {
   const { hsva, onChange } = props;
@@ -33,7 +20,7 @@ export const RgbaInput: FC<RgbaInputInterface> = (props) => {
   };
 
   return (
-    <div className={rgbInputContainer}>
+    <div className={styles['rgba-container']}>
       <InputCell
         value={rgba.r}
         label="R"

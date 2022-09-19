@@ -1,48 +1,12 @@
 import React, { FC, useRef } from "react";
-import { css } from "@emotion/css";
+import styles from './transparency.module.less';
 import { HSVA } from "../types";
 import { calculateTransparency } from "../util/transparency_helper";
-import { transparentImageUrl } from "../constants";
 
 interface TransparentInterface {
   hsv: HSVA;
   onChange: (hsva: HSVA) => void;
 }
-
-const transparentContainer = css`
-  position: relative;
-  margin-top: 10px;
-  width: 100%;
-  height: 15px;
-  border-radius: 12px;
-  background-image: url(${transparentImageUrl});
-`;
-
-const transparentHue = css`
-  border-radius: 12px;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-`;
-
-const transparentCursor = css`
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #eee;
-  border-radius: 50%;
-  box-sizing: border-box;
-  transform: translate(-9px, -2px);
-  background-image: url(${transparentImageUrl});
-  overflow: hidden;
-
-  div {
-    width: 100%;
-    height: 100%;
-  }
-`;
 
 export const Transparent: FC<TransparentInterface> = (props) => {
   const { hsv, onChange } = props;
@@ -68,18 +32,18 @@ export const Transparent: FC<TransparentInterface> = (props) => {
 
   return (
     <div
-      className={transparentContainer}
+      className={styles['transparency-container']}
       ref={transparentRef}
       onMouseDown={handleMouseDown}
     >
       <div
-        className={transparentHue}
+        className={styles['transparency-hue']}
         style={{
           backgroundImage: `linear-gradient(to right, transparent, hsl(${h}, 100%, 50%))`,
         }}
       ></div>
 
-      <div className={transparentCursor} style={{ left: a * 100 + "%" }}>
+      <div className={styles['transparency-cursor']} style={{ left: a * 100 + "%" }}>
         <div style={{ backgroundColor: `hsla(${h}, 100%, 50%, ${a})` }} />
       </div>
     </div>

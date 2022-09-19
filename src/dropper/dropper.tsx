@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react";
-import { css } from "@emotion/css";
 import { CgColorPicker } from "react-icons/cg";
+import styles from './dropper.module.less';
 import { useCustomEyeDropper } from "./hooks/useCustomEyeDropper";
 import { isBrowserEyeDropper } from "../util/isBrowserSupportEyeDropper";
 import { HSVA } from "../types";
@@ -10,20 +10,6 @@ import { ColorModel } from "../colorModel";
 interface DropperInterface {
   onChange: (hsva: HSVA) => void;
 }
-
-const dropper = css`
-  display: flex;
-  align-items: center;
-  border: 1px solid #eee;
-  cursor: pointer;
-  border-radius: 4px;
-  background-color: white;
-
-  box-sizing: border-box;
-  width: 16px;
-  height: 16px;
-  border-radius: 4px;
-`;
 
 export const Dropper: FC<DropperInterface> = (props) => {
   const { onChange } = props;
@@ -50,7 +36,7 @@ export const Dropper: FC<DropperInterface> = (props) => {
   }, [color]);
 
   return (
-    <button onClick={handleOpenDropper} className={dropper}>
+    <button onClick={handleOpenDropper} className={styles['dropper']}>
       <CgColorPicker></CgColorPicker>
     </button>
   );

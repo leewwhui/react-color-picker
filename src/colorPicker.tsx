@@ -1,8 +1,7 @@
 import { FC } from "react";
 import styles from "./colorPicker.module.less";
-import { css } from "@emotion/css";
 import { Saturation } from "./saturation/saturation";
-import { HSVA, ColorSet, colorPrams } from "./types";
+import { HSVA, colorPrams, ColorSet } from "./types";
 import { Hue } from "./hue/hue";
 import { Transparent } from "./transparency/transparency";
 import { ColorPreview } from "./colorPreview/colorPreview";
@@ -12,37 +11,12 @@ import { useColorManipulate } from "./hooks/useColorManipulate";
 import { COLOR, WIDTH } from "./constants";
 import { RgbaInput } from "./colorInput/regbInput";
 import { ColorPreset } from "./colorPreset/colorPreset";
+
 interface ColorPickerInterface {
   width?: number;
   color?: colorPrams;
   onChange?: (color: ColorSet) => void;
 }
-
-const container = css`
-  padding: 10px 10px 0px 10px;
-  background-color: #fff;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  overflow: hidden;
-  border-radius: 4px;
-  box-shadow: rgb(0 0 0 / 15%) 0px 0px 0px 1px, rgb(0 0 0 / 15%) 0px 8px 16px;
-`;
-
-const toolboxContainer = css`
-  margin-top: 10px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-`;
-
-const colorInput = css`
-  width: 100%;
-  display: flex;
-  margin-top: 10px;
-`;
 
 export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
   const { color = COLOR, width = WIDTH, onChange } = props;
@@ -53,10 +27,10 @@ export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
   };
 
   return (
-    <div className={container} style={{ width }}>
+    <div className={styles['container']} style={{ width }}>
       <Saturation hsv={hsva} onChange={handleChangeHSVA}></Saturation>
 
-      <div className={toolboxContainer}>
+      <div className={styles['toolbox-container']}>
         <ColorPreview hsv={hsva}></ColorPreview>
         <div style={{ flex: 0.9 }}>
           <Hue hsva={hsva} onChange={handleChangeHSVA}></Hue>
@@ -64,7 +38,7 @@ export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
         </div>
       </div>
 
-      <div className={colorInput}>
+      <div className={styles['color-input']}>
         <HexInput hsva={hsva} onChange={handleChangeColor}></HexInput>
         <RgbaInput hsva={hsva} onChange={handleChangeColor}></RgbaInput>
       </div>

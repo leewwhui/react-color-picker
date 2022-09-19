@@ -14,11 +14,12 @@ export enum colorEnum {
   HSL = "hsl",
 }
 
-export type ColorSet = {
+export interface ColorSet {
   [colorEnum.HSV]: HSVA;
   [colorEnum.HSL]: HSLA;
   [colorEnum.HEX]: HEX;
   [colorEnum.RGBA]: RGBA;
-};
+}
 
 export type colorPrams = HSV | HSL | RGB | RGBA | HEX | HSVA | HSLA;
+
