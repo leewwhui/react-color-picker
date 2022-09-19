@@ -1,53 +1,41 @@
 import React, { useState } from "react";
 import { RGBA } from "../../types";
-import { drawMagnifying, renderBackgroundImage } from "./utils";
+import { renderBackgroundImage } from "./utils";
 
 const mask = document.createElement("div");
 mask.style.cssText =
   "position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 9999; cursor: crosshair;";
+
+const preview = document.createElement("div");
+preview.style.cssText =
+  "position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 9999; width: 10px; height: 10px; border: 1px solid #eee";
 
 export const useCustomEyeDropper = () => {
   const [color, setColor] = useState<RGBA | null>(null);
 
   const openDropper = async (e: MouseEvent | React.MouseEvent) => {
     document.body.append(mask);
-    const { left, top, width, height } = mask.getBoundingClientRect();
 
-    const url = await (await renderBackgroundImage()).toDataURL("image/png");
-    const image = new Image();
-    image.src = url;
-
-    const canvas = document.createElement("canvas");
-    canvas.style.cssText = `position: absolute; top: ${top}px; left: ${left}px;`;
-    canvas.width = width;
-    canvas.height = height;
-    const context = canvas.getContext("2d")!;
-
-    const offscreenCanvas = canvas.cloneNode() as HTMLCanvasElement;
+    const offscreenCanvas = await renderBackgroundImage();
     const offscreenContext = offscreenCanvas.getContext("2d")!;
 
-    image.onload = () => {
-      offscreenContext.drawImage(image, 0, 0);
-    };
-
-    mask.append(canvas);
-    drawMagnifying(canvas, context, offscreenCanvas, e);
+    mask.append(preview);
 
     mask.addEventListener("mousemove", (e: MouseEvent) => {
-      drawMagnifying(canvas, context, offscreenCanvas, e);
+      const { x, y } = e;
+      preview.style.left = x + 5 + "px";
+      preview.style.top = y + 5 + "px";
+
+      const pixel = offscreenContext.getImageData(x, y, 1, 1).data;
+      preview.style.backgroundColor = `rgba(${pixel[0]}, ${pixel[1]}, ${pixel[2]}, ${pixel[3]})`;
     });
 
-    // mask.addEventListener("mousedown", (e: MouseEvent) => {
-    //   const [r, g, b, a] = context.getImageData(e.x, e.y, 1, 1).data;
-    //   context.clearRect(0, 0, canvas.width, canvas.height);
-    //   offscreenContext?.clearRect(
-    //     0,
-    //     0,
-    //     offscreenCanvas.width,
-    //     offscreenCanvas.height
-    //   );
-    //   setColor({ r, g, b, a });
-    // });
+    mask.addEventListener("mousedown", (e: MouseEvent) => {
+      const { x, y } = e;
+      const [r, g, b, a] = offscreenContext.getImageData(x, y, 1, 1).data;
+      setColor({ r, g, b, a });
+      document.body.removeChild(mask);
+    });
   };
 
   const closeDropper = () => {

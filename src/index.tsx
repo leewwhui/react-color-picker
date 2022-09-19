@@ -1,4 +1,5 @@
 import { FC } from "react";
+import styles from "./colorPicker.module.less";
 import { css } from "@emotion/css";
 import { Saturation } from "./saturation/saturation";
 import { HSVA, ColorSet, colorPrams } from "./types";
@@ -10,6 +11,7 @@ import { Dropper } from "./dropper/dropper";
 import { useColorManipulate } from "./hooks/useColorManipulate";
 import { COLOR, WIDTH } from "./constants";
 import { RgbaInput } from "./colorInput/regbInput";
+import { ColorPreset } from "./colorPreset/colorPreset";
 interface ColorPickerInterface {
   width?: number;
   color?: colorPrams;
@@ -17,7 +19,7 @@ interface ColorPickerInterface {
 }
 
 const container = css`
-  padding: 10px;
+  padding: 10px 10px 0px 10px;
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -67,7 +69,7 @@ export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
         <RgbaInput hsva={hsva} onChange={handleChangeColor}></RgbaInput>
       </div>
 
-      <Dropper onChange={handleChangeColor}></Dropper>
+      <ColorPreset onChange={handleChangeColor}></ColorPreset>
     </div>
   );
 };

@@ -14,11 +14,15 @@ interface DropperInterface {
 const dropper = css`
   display: flex;
   align-items: center;
-  margin-left: 5px;
-  border: 1.5px solid #eee;
+  border: 1px solid #eee;
   cursor: pointer;
   border-radius: 4px;
   background-color: white;
+
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
 `;
 
 export const Dropper: FC<DropperInterface> = (props) => {
