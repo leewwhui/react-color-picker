@@ -37,7 +37,7 @@ export const Dropper: FC<DropperInterface> = (props) => {
 
   return (
     <button onClick={handleOpenDropper} className={styles['dropper']}>
-      <CgColorPicker></CgColorPicker>
+      <CgColorPicker size={20}></CgColorPicker>
     </button>
   );
 };

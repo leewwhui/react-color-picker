@@ -41,9 +41,8 @@ export const RgbaInput: FC<RgbaInputInterface> = (props) => {
       <InputCell
         value={Math.floor(rgba.a * 100)}
         label="A"
+        max={100}
         onChange={(a) => {
-          if (a < 0) a = 0;
-          if (a > 100) a = 100;
           handleChange({ ...rgba, a: a / 100 });
         }}
       ></InputCell>

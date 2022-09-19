@@ -1,40 +1,43 @@
-import React, { FC, useEffect } from "react";
+import React from "react";
 import styles from "./input.module.less";
 
 interface InputCellInterface {
   value: number;
   label: string;
+  max?: number;
   onChange: (value: number) => void;
 }
 
-export const InputCell: FC<InputCellInterface> = (props) => {
-  const { value, label, onChange } = props;
-  let prevX: number | null = null;
+export class InputCell extends React.Component<InputCellInterface> {
+  constructor(props: InputCellInterface) {
+    super(props)
+  }
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    prevX = e.clientX;
-    document.body.style.cursor = "ew-resize";
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-  };
+  handleMouseDown = () => {
+    document.body.style.cursor = 'ew-resize';
+    window.addEventListener('mousemove', this.handleMouseMove);
+    window.addEventListener('mouseup', this.handleMouseUp);
+  }
 
-  const handleMouseMove = (e: MouseEvent) => {
-    if (prevX) {
-      const diff = e.clientX - prevX;
-      onChange(value + diff);
-    }
-  };
+  handleMouseMove = (e: MouseEvent) => {
+    const {value, max = 255} = this.props;
+    const newValue = value + e.movementX;
+    if (newValue > max || newValue < 0) return;
+    this.props.onChange(newValue);
+  }
 
-  const handleMouseUp = () => {
+  handleMouseUp = () => {
     document.body.style.cursor = "default";
-    document.removeEventListener("mousemove", handleMouseMove);
-    document.removeEventListener("mouseup", handleMouseUp);
-  };
+    window.removeEventListener("mousemove", this.handleMouseMove);
+    window.removeEventListener("mouseup", this.handleMouseUp);
+  }
 
-  return (
+  render() {
+    return (
     <div className={styles["input-cell"]}>
-      <input value={value} onChange={(e) => onChange(Number(e.target.value))} />
-      <span onMouseDown={handleMouseDown}>{label}</span>
+      <input value={this.props.value} onChange={(e) => this.props.onChange(Number(e.target.value))} />
+      <span onMouseDown={this.handleMouseDown}>{this.props.label}</span>
     </div>
-  );
-};
+    )
+  }
+}
