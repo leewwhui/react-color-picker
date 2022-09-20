@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import {presetCell, presetContainer} from './colorPreset.style';
-import { colorPrams, HEX, HSVA, RGBA } from "../types";
+import { colorParams, HEX, HSVA, RGBA } from "../types";
 import { ColorModel } from "../colorModel";
 import { DEFAULT_PRESET_COLORS } from "../constants";
 
 interface ColorPresetInterface {
   onChange: (hsva: HSVA) => void;
-  presetColors?: colorPrams[]
+  presetColors?: colorParams[]
 }
 
 export const ColorPreset: FC<ColorPresetInterface> = (props) => {

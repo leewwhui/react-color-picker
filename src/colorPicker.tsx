@@ -1,7 +1,7 @@
 import  React, { FC } from "react";
 import { Saturation } from "./saturation/saturation";
 import {container, toolboxContainer, colorInput, toolboxSelector} from './colorPicker.style';
-import { HSVA, colorPrams, ColorSet } from "./types";
+import { HSVA, colorParams, ColorSet } from "./types";
 import { Hue } from "./hue/hue";
 import { Transparent } from "./transparency/transparency";
 import { ColorPreview } from "./colorPreview/colorPreview";
@@ -14,7 +14,7 @@ import { Dropper } from "./dropper/dropper";
 
 interface ColorPickerInterface {
   width?: number;
-  color?: colorPrams;
+  color?: colorParams;
   onChange?: (color: ColorSet) => void;
   hideEyeDrop?: boolean;
   hidePresets?: boolean;

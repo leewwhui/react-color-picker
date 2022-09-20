@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react";
 // import { ReactColorPicker } from "../src/index";
 import { ReactColorPicker } from '../dist';
+import './App.css'
 
 function App() {
   const [color, setColor] = useState({ r: 123, g: 123, b: 123, a: 0.5 });

@@ -1,8 +1,8 @@
 import tinycolor from "tinycolor2";
-import { colorEnum, colorPrams, ColorSet } from "./types";
+import { colorEnum, colorParams, ColorSet } from "./types";
 
 export class ColorModel {
-  static toColorSet(data: colorPrams): ColorSet {
+  static toColorSet(data: colorParams): ColorSet {
     const color = tinycolor(data);
     const alpha = color.getAlpha();
     color.setAlpha(alpha);
@@ -28,13 +28,13 @@ export class ColorModel {
     };
   }
 
-  static isColorEqual(source: colorPrams, target: colorPrams) {
+  static isColorEqual(source: colorParams, target: colorParams) {
     const targetSrc = tinycolor(target).toString();
     const sourceColor = tinycolor(source).toString();
     return targetSrc === sourceColor;
   }
 
-  static getType(color: colorPrams): colorEnum | null {
+  static getType(color: colorParams): colorEnum | null {
     const str = tinycolor(color).toString();
 
     if (str.indexOf("#") !== -1) return colorEnum.HEX;

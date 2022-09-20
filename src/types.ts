@@ -21,5 +21,5 @@ export interface ColorSet {
   [colorEnum.RGBA]: RGBA;
 }
 
-export type colorPrams = HSV | HSL | RGB | RGBA | HEX | HSVA | HSLA;
+export type colorParams = HSV | HSL | RGB | RGBA | HEX | HSVA | HSLA;
 

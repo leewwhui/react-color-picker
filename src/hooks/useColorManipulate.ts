@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { ColorModel } from "../colorModel";
-import { colorPrams, ColorSet, HSVA } from "../types";
+import { colorParams, ColorSet, HSVA } from "../types";
 
 export const useColorManipulate = (
-  color: colorPrams,
+  color: colorParams,
   onChange?: (color: ColorSet) => void
 ) => {
   const [hsva, setHSVA] = useState(ColorModel.toColorSet(color).hsv);
