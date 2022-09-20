@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import {colorPreviewContainer} from './colorPreview.style';
-import tinycolor from "tinycolor2";
+import { ColorModel } from '../colorModel';
 import { HSVA } from "../types";
 
 interface ColorPreviewInterface {
@@ -9,7 +9,7 @@ interface ColorPreviewInterface {
 
 export const ColorPreview: FC<ColorPreviewInterface> = (props) => {
   const { hsv } = props;
-  const { r, g, b, a } = tinycolor(hsv).toRgb();
+  const { r, g, b, a } = ColorModel.toColorSet(hsv).rgba;
 
   return (
     <div className={colorPreviewContainer}>
