@@ -1,7 +1,7 @@
-export const WIDTH = 200;
+export const WIDTH = 230;
 export const COLOR = "#ffffff";
 
-export const presetColors = [
+export const DEFAULT_PRESET_COLORS = [
   "#D0021B",
   "#F5A623",
   "#F8E71C",

@@ -8,20 +8,7 @@ export const rgbaContainer = css`
     box-sizing: border-box;
     padding: 0px 2px;
     height: 20px;
-    width: 95%;
+    width: 90%;
     border: 1px solid #eee;
   }
 `
-
-// .rgba-container {
-//   display: flex;
-//   flex: 1;
-
-//   input {
-//     box-sizing: border-box;
-//     padding: 0px 2px;
-//     height: 20px;
-//     width: 95%;
-//     border: 1px solid #eee;
-//   }
-// }
