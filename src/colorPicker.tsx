@@ -1,4 +1,4 @@
-import  { FC } from "react";
+import  React, { FC } from "react";
 import { Saturation } from "./saturation/saturation";
 import {container, toolboxContainer, colorInput, toolboxSelector} from './colorPicker.style';
 import { HSVA, colorPrams, ColorSet } from "./types";

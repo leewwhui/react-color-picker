@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import {presetCell, presetContainer} from './colorPreset.style';
 import { colorPrams, HEX, HSVA, RGBA } from "../types";
 import { ColorModel } from "../colorModel";
