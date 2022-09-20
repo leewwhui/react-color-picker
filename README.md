@@ -1,4 +1,6 @@
-# react-color-pane
+# react-color-picker-tool
+
+color picker in react, write typescript, and support color dropper to get any color in webpage, use native api in Chrome, use canvas api in other browser
 
 [![Try is Online](https://api.netlify.com/api/v1/badges/80bd8482-5f5a-4f98-abc4-e72eb5dca6b9/deploy-status)](https://app.netlify.com/sites/regal-platypus-0873a3/deploys)
 ## In Chrome 
