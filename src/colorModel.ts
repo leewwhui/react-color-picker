@@ -1,4 +1,4 @@
-import tinycolor from "tinycolor2";
+import {tinycolor} from './util/tinycolor';
 import { colorEnum, colorParams, ColorSet } from "./types";
 
 export class ColorModel {

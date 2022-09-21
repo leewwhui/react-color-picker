@@ -1,8 +1,8 @@
 import React, { FC, useRef } from "react";
 import {saturationCursor, saturationContainer} from './saturation.style';
-import tinycolor from "tinycolor2";
 import { HSVA } from "../types";
 import { calculateHSV } from "../util/saturation_helper";
+import { ColorModel } from "../colorModel";
 
 interface SaturationInterface {
   hsv: HSVA;
@@ -12,7 +12,8 @@ interface SaturationInterface {
 export const Saturation: FC<SaturationInterface> = (props) => {
   const { hsv, onChange } = props;
   const containerRef = useRef<HTMLDivElement>(null);
-  const rgb = tinycolor(hsv).toRgb();
+  const rgb = ColorModel.toColorSet(hsv).rgba;
+
   const saturationPosition = { x: hsv.s, y: 100 - hsv.v };
 
   const handleOnChange = (e: React.MouseEvent | MouseEvent) => {
