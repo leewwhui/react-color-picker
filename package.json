@@ -1,7 +1,7 @@
 {
   "name": "react-color-picker-tool",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.4",
   "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/index.module.js",

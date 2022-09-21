@@ -2,7 +2,14 @@
 
 color picker in react, write typescript, and support color dropper to get any color in webpage, use native api in Chrome, use canvas api in other browser
 
-[![Try is Online](https://api.netlify.com/api/v1/badges/80bd8482-5f5a-4f98-abc4-e72eb5dca6b9/deploy-status)](https://app.netlify.com/sites/regal-platypus-0873a3/deploys)
+```bash
+npm i react-color-picker-tool
+```
+
+[Try it online](https://subtle-horse-34504f.netlify.app/)
+
+![react-color-picker](https://cdn.staticaly.com/gh/leewhui/image-store@master/myimages/react-color-picker.20x5y3hkgrpc.webp)
+
 ## In Chrome 
 ![Chrome](https://cdn.staticaly.com/gh/leewhui/image-store@master/myimages/react-color-pane-chrome.5kj04ajpuic0.gif)
 
@@ -26,9 +33,11 @@ function App() {
 |             | type                     | default   | description                  |
 |-------------|--------------------------|-----------|------------------------------|
 | color       | colorParams               | "#ffffff" | Input color                  |
+| width       | number/string             | "#ffffff" | width of the color picker panel  |
 | onChange    | (color:ColorSet) => void |           | Color change callback        |
 | hideEyeDrop | boolean                  | false     | Whether hidden eye dropper   |
 | hidePresets | boolean                  | false     | Whether hidden preset colors |
+| presetColors | Array<colorParams>      | []        | colors for preset            |
 
 ### colorParams
 use [tinycolor2](https://github.com/bgrins/TinyColor) to handle the color input

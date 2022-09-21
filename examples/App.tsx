@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
-import { ReactColorPicker } from "../src/index";
-// import { ReactColorPicker } from '../dist';
+// import { ReactColorPicker } from "../src/index";
+import { ReactColorPicker } from '../dist';
 import './App.css'
 
 function App() {
