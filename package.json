@@ -1,7 +1,8 @@
 {
   "name": "react-color-picker-tool",
+  "license": "MIT",
   "private": false,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/index.module.js",
@@ -16,6 +17,10 @@
       "require": "./dist/index.js",
       "default": "./dist/index.module.js"
     }
+  },
+   "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leewhui/react-color-picker.git"
   },
   "scripts": {
     "dev": "vite",
