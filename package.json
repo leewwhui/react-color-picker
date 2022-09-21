@@ -1,7 +1,7 @@
 {
   "name": "react-color-picker-tool",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/index.module.js",
@@ -28,13 +28,11 @@
   ],
   "dependencies": {
     "@emotion/css": "^11.10.0",
-    "html2canvas": "^1.4.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.4.0",
-    "tinycolor2": "^1.4.2"
+    "html2canvas": "^1.4.1"
   },
   "devDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "@rollup/plugin-typescript": "^8.5.0",
     "@types/node": "^18.7.18",
     "@types/react": "^18.0.17",

@@ -1,10 +1,9 @@
 import React, { FC, useEffect } from "react";
-import { CgColorPicker } from "react-icons/cg";
+import dropperIcon from './dropper-icon.svg';
 import {dropper} from './dropper.style';
 import { useCustomEyeDropper } from "./hooks/useCustomEyeDropper";
 import { isBrowserEyeDropper } from "../util/isBrowserSupportEyeDropper";
 import { HSVA } from "../types";
-import tinycolor from "tinycolor2";
 import { ColorModel } from "../colorModel";
 
 interface DropperInterface {
@@ -30,14 +29,14 @@ export const Dropper: FC<DropperInterface> = (props) => {
 
   useEffect(() => {
     if (!color) return;
-    const hex = tinycolor(color).toHex();
+    const hex = ColorModel.toColorSet(color).hex;
     closeDropper();
     onChange(ColorModel.toColorSet(hex).hsv);
   }, [color]);
 
   return (
     <button onClick={handleOpenDropper} className={dropper}>
-      <CgColorPicker size={20}></CgColorPicker>
+      <img src={dropperIcon} alt="" />
     </button>
   );
 };

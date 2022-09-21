@@ -8,8 +8,8 @@ export const dropper = css`
   border-radius: 4px;
   background-color: white;
   box-sizing: border-box;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   border-radius: 4px;
   justify-content: end;
 `
