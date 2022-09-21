@@ -10,7 +10,7 @@ function App() {
       <div className="container">
         <h1 className="title">React Color Pane</h1>
         <div className="picker">
-          <ReactColorPicker color={color} onChange={colors => setColor(colors.rgba)} hideEyeDrop hidePresets></ReactColorPicker>
+          <ReactColorPicker color={color} onChange={colors => setColor(colors.rgba)}></ReactColorPicker>
         </div>
       </div>
 
