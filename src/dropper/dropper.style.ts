@@ -12,4 +12,5 @@ export const dropper = css`
   height: 20px;
   border-radius: 4px;
   justify-content: end;
+  padding: 0;
 `
