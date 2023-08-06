@@ -1,49 +1,30 @@
-import  React, { FC } from "react";
-import { Saturation } from "./saturation/saturation";
-import {container, toolboxContainer, colorInput, toolboxSelector} from './colorPicker.style';
-import { colorParams, ColorSet } from "./types";
-import { Hue } from "./hue/hue";
-import { Transparent } from "./transparency/transparency";
-import { ColorPreview } from "./colorPreview/colorPreview";
-import { HexInput } from "./colorInput/hexInput";
+import { createContext, FC, useMemo } from "react";
+import { ColorContextProps, ColorPickerProps } from "./types";
 import { useColorManipulate } from "./hooks/useColorManipulate";
-import { COLOR, DEFAULT_PRESET_COLORS, WIDTH } from "./constants";
-import { RgbaInput } from "./colorInput/regbInput";
-import { ColorPreset } from "./colorPreset/colorPreset";
-import { Dropper } from "./dropper/dropper";
+import { defultColor } from "./constants";
+import { Saturation } from "./components/saturation/saturation";
+import { Utils } from "./colorModel";
 
-interface ColorPickerInterface {
-  width?: number | string;
-  color?: colorParams;
-  onChange?: (color: ColorSet) => void;
-  hideEyeDrop?: boolean;
-  hidePresets?: boolean;
-  presetColors?: colorParams[];
-}
+export const ColorContext = createContext<ColorContextProps>({
+  colors: Utils.toColorSet(defultColor),
+  onUpdateHsva: () => {},
+});
 
-export const ReactColorPicker: FC<ColorPickerInterface> = (props) => {
-  const { color = COLOR, width = WIDTH, onChange, hideEyeDrop = false, hidePresets = false,  presetColors = DEFAULT_PRESET_COLORS } = props;
-  const { hsva, handleChangeColor } = useColorManipulate(color, onChange);
+export const ReactColorPicker: FC<ColorPickerProps> = (props) => {
+  const { color = defultColor, onChange } = props;
+  const { hsva, onUpdateHsva } = useColorManipulate(color, onChange);
+
+  const colors = useMemo(() => {
+    const colorset = Utils.toColorSet(hsva);
+    colorset.hsv = hsva;
+    return colorset;
+  }, [hsva]);
 
   return (
-    <div className={container} style={{ width }}>
-      <Saturation hsv={hsva} onChange={handleChangeColor}></Saturation>
-
-      <div className={toolboxContainer}>
-        <ColorPreview hsv={hsva}></ColorPreview>
-        <div className={toolboxSelector}>
-          <Hue hsva={hsva} onChange={handleChangeColor}></Hue>
-          <Transparent hsv={hsva} onChange={handleChangeColor}></Transparent>
-        </div>
+    <ColorContext.Provider value={{ colors, onUpdateHsva }}>
+      <div style={{ width: "200px" }}>
+        <Saturation />
       </div>
-
-      <div className={colorInput}>
-        <HexInput hsva={hsva} onChange={handleChangeColor}></HexInput>
-        <RgbaInput hsva={hsva} onChange={handleChangeColor}></RgbaInput>
-        {!hideEyeDrop &&  <Dropper onChange={handleChangeColor}></Dropper>}
-      </div>
-
-      {!hidePresets && <ColorPreset presetColors={presetColors} onChange={handleChangeColor}></ColorPreset>}
-    </div>
+    </ColorContext.Provider>
   );
 };

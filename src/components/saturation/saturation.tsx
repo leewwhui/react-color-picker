@@ -1,24 +1,20 @@
-import React, { FC, useRef } from "react";
-import {saturationCursor, saturationContainer} from './saturation.style';
-import { HSVA } from "../types";
-import { calculateHSV } from "../util/saturation_helper";
-import { ColorModel } from "../colorModel";
+import React, { useContext, useRef } from "react";
+import { saturationCursor, saturationContainer } from "./saturation.style";
+import { calculateHSV } from "../../util/saturation_helper";
+import { ColorContext } from "../../colorPicker";
 
-interface SaturationInterface {
-  hsv: HSVA;
-  onChange: (hsv: HSVA) => void;
-}
-
-export const Saturation: FC<SaturationInterface> = (props) => {
-  const { hsv, onChange } = props;
+export const Saturation = () => {
+  const { colors, onUpdateHsva } = useContext(ColorContext);
   const containerRef = useRef<HTMLDivElement>(null);
-  const rgb = ColorModel.toColorSet(hsv).rgba;
+
+  const { rgba, hsv } = colors;
 
   const saturationPosition = { x: hsv.s, y: 100 - hsv.v };
 
   const handleOnChange = (e: React.MouseEvent | MouseEvent) => {
     if (!containerRef || !containerRef.current) return;
-    onChange(calculateHSV(e, containerRef.current, hsv));
+
+    onUpdateHsva(calculateHSV(e, containerRef.current, hsv));
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -45,7 +41,7 @@ export const Saturation: FC<SaturationInterface> = (props) => {
       <div
         className={saturationCursor}
         style={{
-          backgroundColor: `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`,
+          backgroundColor: `rgb(${rgba.r}, ${rgba.g}, ${rgba.b})`,
           left: saturationPosition.x + "%",
           top: saturationPosition.y + "%",
         }}

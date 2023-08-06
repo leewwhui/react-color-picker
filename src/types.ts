@@ -23,3 +23,13 @@ export interface ColorSet {
 
 export type colorParams = HSV | HSL | RGB | RGBA | HEX | HSVA | HSLA;
 
+
+export interface ColorPickerProps {
+  color?: colorParams;
+  onChange?: (color: ColorSet) => void;
+}
+
+export interface ColorContextProps {
+  colors: ColorSet;
+  onUpdateHsva: (hsva: HSVA) => void;
+}

@@ -1,7 +1,7 @@
-import {tinycolor} from './util/tinycolor';
 import { colorEnum, colorParams, ColorSet } from "./types";
+import { tinycolor } from "./util/tinycolor";
 
-export class ColorModel {
+export class Utils {
   static toColorSet(data: colorParams): ColorSet {
     const color = tinycolor(data);
     const alpha = color.getAlpha();
