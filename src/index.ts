@@ -1,2 +1,2 @@
 export { ReactColorPicker } from './colorPicker'
-export type { ColorSet, colorParams } from './types';
+export type { Colors, colorParams } from './types';

@@ -7,29 +7,29 @@ export type RGBA = { r: number; g: number; b: number; a: number };
 export type RGB = { r: number; g: number; b: number };
 export type HEX = string;
 
-export enum colorEnum {
+export enum colorTypes {
   HEX = "hex",
   RGBA = "rgba",
   HSV = "hsv",
   HSL = "hsl",
 }
 
-export interface ColorSet {
-  [colorEnum.HSV]: HSVA;
-  [colorEnum.HSL]: HSLA;
-  [colorEnum.HEX]: HEX;
-  [colorEnum.RGBA]: RGBA;
+export interface Colors {
+  [colorTypes.HSV]: HSVA;
+  [colorTypes.HSL]: HSLA;
+  [colorTypes.HEX]: HEX;
+  [colorTypes.RGBA]: RGBA;
 }
 
 export type colorParams = HSV | HSL | RGB | RGBA | HEX | HSVA | HSLA;
 
-
 export interface ColorPickerProps {
+  children?: React.ReactElement[] | React.ReactElement;
   color?: colorParams;
-  onChange?: (color: ColorSet) => void;
+  onChange?: (color: Colors) => void;
 }
 
 export interface ColorContextProps {
-  colors: ColorSet;
+  colors: Colors;
   onUpdateHsva: (hsva: HSVA) => void;
 }

@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from "react";
 import { saturationCursor, saturationContainer } from "./saturation.style";
-import { calculateHSV } from "../../util/saturation_helper";
+import { Helpers } from "../../utils/helper";
 import { ColorContext } from "../../colorPicker";
 
 export const Saturation = () => {
@@ -11,14 +11,14 @@ export const Saturation = () => {
 
   const saturationPosition = { x: hsv.s, y: 100 - hsv.v };
 
-  const handleOnChange = (e: React.MouseEvent | MouseEvent) => {
+  const handleOnChange = (e: MouseEvent) => {
     if (!containerRef || !containerRef.current) return;
 
-    onUpdateHsva(calculateHSV(e, containerRef.current, hsv));
+    onUpdateHsva(Helpers.calculateHSV(e, containerRef.current, hsv));
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    handleOnChange(e);
+    handleOnChange(e.nativeEvent);
     document.addEventListener("mousemove", handleOnChange, false);
     document.addEventListener("mouseup", handleMouseUp, false);
   };

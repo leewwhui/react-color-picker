@@ -1,32 +1,32 @@
 import { useEffect, useRef, useState } from "react";
-import { colorParams, ColorSet, HSVA } from "../types";
-import { Utils } from "../colorModel";
+import { colorParams, Colors, HSVA } from "../types";
+import { Conveter } from "../utils/conveter";
 
 export const useColorManipulate = (
   color: colorParams,
-  onChange?: (color: ColorSet) => void
+  onChange?: (color: Colors) => void
 ) => {
-  const [hsva, setHSVA] = useState(Utils.toColorSet(color).hsv);
+  const [hsva, setHSVA] = useState(Conveter.toHsva(color));
 
   // source color and hsva
   const cache = useRef({ color, hsva });
 
   useEffect(() => {
-    if (!Utils.isColorEqual(color, cache.current.color)) {
-      const hsva = Utils.toColorSet(color).hsv;
+    if (!Conveter.isColorEqual(color, cache.current.color)) {
+      const hsva = Conveter.toHsva(color);
       cache.current = { color, hsva };
       setHSVA(hsva);
     }
   }, [color]);
 
   useEffect(() => {
-    const colors = Utils.toColorSet(hsva);
-    const colorType = Utils.getType(cache.current.color);
+    const colors = Conveter.fromHsva(hsva);
+    const colorType = Conveter.getType(cache.current.color);
 
     if (
       colorType &&
-      !Utils.isColorEqual(colors[colorType], cache.current.color) &&
-      !Utils.isColorEqual(colors.hsv, cache.current.hsva)
+      !Conveter.isColorEqual(colors[colorType], cache.current.color) &&
+      !Conveter.isColorEqual(colors.hsv, cache.current.hsva)
     ) {
       cache.current = { color: colors[colorType], hsva };
       onChange && onChange(colors);
